@@ -14,11 +14,15 @@ class Subscription extends Model
         'user_id'
     ];
 
+    protected $with = [
+        'user', 'website'
+    ];
+
     public function website() {
         return $this->belongsTo(Website::class, 'website_id');
     }
 
     public function user() {
-        return $this->belongsTo(User::class, 'website_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

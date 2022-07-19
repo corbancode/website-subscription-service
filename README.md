@@ -16,6 +16,7 @@ This is a simple subscription platform(only RESTful APIs with MySQL) in which us
 - If you would like to have some dummy data, run `php artisan db:seed`.
 #### Running Development Server
 - Run `php artisan serve` to start the development server
+- Because some operations are queued, you need to run `php artisan queue:work` to process the jobs.
 - You can now access the server on your localhost e.g `http://localhost:{APP_PORT}`
 
 ## Security Vulnerabilities

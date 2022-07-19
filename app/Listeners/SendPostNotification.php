@@ -7,8 +7,9 @@ use App\Managers\SubscriptionManager;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendPostNotification
+class SendPostNotification implements ShouldQueue
 {
+    use InteractsWithQueue;
     /**
      * Create the event listener.
      *

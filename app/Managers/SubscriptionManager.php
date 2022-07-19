@@ -5,15 +5,16 @@ namespace App\Managers;
 use App\Models\Post;
 use App\Models\Subscription;
 use App\Notifications\PostNotification;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 class SubscriptionManager {
     /**
      * Get all subscriptions
      *
-     * @return \Illuminate\Database\Eloquent\Collection $post
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function all(): ?Collection {
+    public function all(): ?LengthAwarePaginator {
         $subscriptions = Subscription::paginate(request()->input('page_size'));
         return $subscriptions;
     }
@@ -24,7 +25,7 @@ class SubscriptionManager {
      * @param int $websiteId
      * @param int $userId
      *
-     * @return  \App\Models\Subscription $subscription
+     * @return  \App\Models\Subscription
      */
     public function create(int $websiteId, int $userId): ?Subscription {
         $data = [
@@ -39,7 +40,7 @@ class SubscriptionManager {
     /**
      * Publish post to all post website subscribers
      *
-     * @param \App\Models\Post $post
+     * @param \App\Models\Post
      */
     public function publishPost(Post $post)
     {

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
 class StorePostRequest extends FormRequest
 {
@@ -24,9 +26,19 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'website_id' => ['required', 'exists:websites,id'],
+            'website_id' => ['required', 'numeric', 'exists:websites,id'],
             'title' => ['required', 'unique:posts', 'max:255'],
-            'body' => 'required',
+            'description' => ['required'],
         ];
+    }
+
+    /**
+     * If validator fails return the exception in json form
+     * @param Validator $validator
+     * @return array
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->error($validator->errors()->first(), $validator->errors()->toArray()));
     }
 }

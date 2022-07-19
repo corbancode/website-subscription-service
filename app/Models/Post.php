@@ -20,6 +20,10 @@ class Post extends Model
         'description'
     ];
 
+    protected $with = [
+        'website'
+    ];
+
     public function website() {
         return $this->belongsTo(Website::class, 'website_id');
     }
