@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreWebsiteRequest;
 use App\Models\Website;
 use Illuminate\Http\Request;
 
@@ -14,51 +15,20 @@ class WebsiteController extends Controller
      */
     public function index()
     {
-        //
+        $websites = Website::paginate(request()->input('page_size'));
+        return response()->success('Users retrieved', $websites);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreWebsiteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreWebsiteRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Website  $website
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Website $website)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Website  $website
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Website $website)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Website  $website
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Website $website)
-    {
-        //
+        $data = $request->validated();
+        $website = Website::create($data);
+        return response()->success('Website created', $website);
     }
 }
