@@ -6,10 +6,10 @@ use App\Events\PostCreated;
 use App\Managers\SubscriptionManager;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Artisan;
 
-class SendPostNotification implements ShouldQueue
+class SendPostNotification
 {
-    use InteractsWithQueue;
     /**
      * Create the event listener.
      *
@@ -28,6 +28,6 @@ class SendPostNotification implements ShouldQueue
      */
     public function handle(PostCreated $event)
     {
-        $this->subscriptionManager->publishPost($event->post);
+        Artisan::queue('wss:send-email-to-subscribers ' . $event->post->id);
     }
 }

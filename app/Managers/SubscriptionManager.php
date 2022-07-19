@@ -36,16 +36,4 @@ class SubscriptionManager {
         $subscription = Subscription::updateOrCreate($data, $data);
         return $subscription;
     }
-
-    /**
-     * Publish post to all post website subscribers
-     *
-     * @param \App\Models\Post
-     */
-    public function publishPost(Post $post)
-    {
-        $post->website->subscriptions->each(function(Subscription $subscription) use($post) {
-            $subscription->user->notify(new PostNotification($post));
-        });
-    }
 }
