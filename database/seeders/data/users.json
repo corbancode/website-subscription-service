@@ -1,7 +1,7 @@
 [
     {
         "name": "Nick A",
-        "url": "nick.a@inisev.com"
+        "email": "nick.a@inisev.com"
     },
     {
         "name": "Valentine Kiryakov",
@@ -9,6 +9,6 @@
     },
     {
         "name": "Ayomide Olakulehin",
-        "url": "oayomideelijah@gmail.com"
+        "email": "oayomideelijah@gmail.com"
     }
 ]
